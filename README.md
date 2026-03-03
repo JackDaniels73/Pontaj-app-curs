@@ -14,7 +14,8 @@ Aceasta este o aplicatie dezvoltata in C# destinata instructorilor care sustin c
 * **2. Inregistrarea prezentei:** Marcarea prezentei saptamanale. Fiecare prezenta va scadea automat o sedinta din "contul" cursantului.
 * **3. Actualizarea platilor:** Adaugarea de noi sedinte platite in avans atunci cand parintii fac o plata.
 * **4. Verificarea situatiei financiare:** Afisarea unei liste cu toti cursantii, care va indica automat:
-    **Sedinte ramase:** Cate cursuri mai poate urma copilul pe baza platii in avans.
-    **Plata necesara:** Un mesaj de avertizare in cazul in care soldul de sedinte ajunge la 0.
+   * **Sedinte ramase:** Cate cursuri mai poate urma copilul pe baza platii in avans.
+     
+   * **Plata necesara:** Un mesaj de avertizare in cazul in care soldul de sedinte ajunge la 0.
 
 ---
