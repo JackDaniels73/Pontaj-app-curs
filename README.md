@@ -1,11 +1,11 @@
-##---------- Sistem de Pontaj si Gestiune a Platilor pentru Cursuri ----------
+# ---------- Sistem de Pontaj si Gestiune a Platilor pentru Cursuri ----------
 
-##---------- Descrierea Proiectului ----------
+# ---------- Descrierea Proiectului ----------
 
-##Aceasta este o aplicatie dezvoltata in C# destinata instructorilor care sustin cursuri saptamanale pentru copii. 
-##Rolul aplicatiei este de a tine evidenta prezentelor si de a monitoriza automat statusul platilor pentru fiecare cursant.
+# Aceasta este o aplicatie dezvoltata in C# destinata instructorilor care sustin cursuri saptamanale pentru copii. 
+# Rolul aplicatiei este de a tine evidenta prezentelor si de a monitoriza automat statusul platilor pentru fiecare cursant.
 
-  ##Operatii pe care doresc sa le implementez:
+  # Operatii pe care doresc sa le implementez:
 ## Adaugarea cursantilor: Inregistrarea copiilor in sistem cu un nume si un sold initial de sedinte platite.
 
 ## Inregistrarea prezentei: Marcarea prezentei saptamanale. Fiecare prezenta va scadea automat o sedinta din "contul" cursantului.
