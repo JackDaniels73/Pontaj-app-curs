@@ -10,9 +10,9 @@ public sealed class RegistruCurs
     public IReadOnlyList<Prezenta> Prezente => _prezente;
     public IReadOnlyList<Plata> Plati => _plati;
 
-    public Cursant AdaugaCursant(string nume, int sedinteInitiale)
+    public Cursant AdaugaCursant(string nume, int sedinteInitiale, NivelCurs nivel = NivelCurs.Incepator, OptiuniCursant optiuni = OptiuniCursant.FaraOptiuni)
     {
-        var cursant = new Cursant(Guid.NewGuid(), nume, sedinteInitiale);
+        var cursant = new Cursant(Guid.NewGuid(), nume, sedinteInitiale, nivel, optiuni);
         _cursanti.Add(cursant);
         return cursant;
     }
@@ -37,10 +37,9 @@ public sealed class RegistruCurs
 
     public IEnumerable<SituatieFinanciaraCursant> ObtineSituatieFinanciara()
     {
-        foreach (var c in _cursanti.OrderBy(x => x.Nume, StringComparer.CurrentCultureIgnoreCase))
-        {
-            yield return new SituatieFinanciaraCursant(c.Id, c.Nume, c.SedinteRamase, c.SedinteRamase == 0);
-        }
+        return _cursanti
+            .OrderBy(x => x.Nume, StringComparer.CurrentCultureIgnoreCase)
+            .Select(c => new SituatieFinanciaraCursant(c.Id, c.Nume, c.SedinteRamase, c.SedinteRamase == 0, c.Nivel, c.Optiuni));
     }
 
     private Cursant GasesteCursant(Guid cursantId)
@@ -55,4 +54,4 @@ public sealed class RegistruCurs
     }
 }
 
-public sealed record SituatieFinanciaraCursant(Guid CursantId, string Nume, int SedinteRamase, bool PlataNecesara);
+public sealed record SituatieFinanciaraCursant(Guid CursantId, string Nume, int SedinteRamase, bool PlataNecesara, NivelCurs Nivel, OptiuniCursant Optiuni);

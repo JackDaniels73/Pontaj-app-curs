@@ -1,8 +1,24 @@
 namespace PontajPlatiCursuri;
 
+public enum NivelCurs
+{
+    Incepator,
+    Intermediar,
+    Avansat
+}
+
+[Flags]
+public enum OptiuniCursant
+{
+    FaraOptiuni = 0,
+    Online = 1,
+    Weekend = 2,
+    EchipamentInclus = 4
+}
+
 public sealed class Cursant
 {
-    public Cursant(Guid id, string nume, int sedinteRamase)
+    public Cursant(Guid id, string nume, int sedinteRamase, NivelCurs nivel = NivelCurs.Incepator, OptiuniCursant optiuni = OptiuniCursant.FaraOptiuni)
     {
         if (string.IsNullOrWhiteSpace(nume))
         {
@@ -17,14 +33,18 @@ public sealed class Cursant
         Id = id;
         Nume = nume;
         SedinteRamase = sedinteRamase;
+        Nivel = nivel;
+        Optiuni = optiuni;
     }
 
     public Guid Id { get; }
     public string Nume { get; }
+    public NivelCurs Nivel { get; set; }
+    public OptiuniCursant Optiuni { get; set; }
 
     public int SedinteRamase { get; private set; }
 
-    internal void AdaugaSedinte(int sedinte)
+    public void AdaugaSedinte(int sedinte)
     {
         if (sedinte <= 0)
         {
@@ -34,7 +54,7 @@ public sealed class Cursant
         SedinteRamase += sedinte;
     }
 
-    internal bool IncearcaScadereSedinta()
+    public bool IncearcaScadereSedinta()
     {
         if (SedinteRamase <= 0)
         {

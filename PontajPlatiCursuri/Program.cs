@@ -1,4 +1,4 @@
-﻿using PontajPlatiCursuri;
+using PontajPlatiCursuri;
 
 var registru = new RegistruCurs();
 
@@ -50,9 +50,17 @@ static void AdaugaCursant(RegistruCurs registru)
 {
     var nume = ReadNonEmpty("Nume cursant: ");
     var sedinte = ReadInt("Sold initial (sedinte platite): ", min: 0);
+    
+    Console.WriteLine("Nivel curs (0=Incepator, 1=Intermediar, 2=Avansat): ");
+    var nivelInt = ReadInt("Alege nivel: ", min: 0, max: 2);
+    var nivel = (NivelCurs)nivelInt;
 
-    var cursant = registru.AdaugaCursant(nume, sedinte);
-    Console.WriteLine($"Cursant adaugat: {cursant.Nume} (ID: {cursant.Id})");
+    Console.WriteLine("Optiuni (combina numere: 0=Fara, 1=Online, 2=Weekend, 4=Echipament): ");
+    var optiuniInt = ReadInt("Suma optiuni: ", min: 0, max: 7);
+    var optiuni = (OptiuniCursant)optiuniInt;
+
+    var cursant = registru.AdaugaCursant(nume, sedinte, nivel, optiuni);
+    Console.WriteLine($"Cursant adaugat: {cursant.Nume} (ID: {cursant.Id}) | {nivel} | {optiuni}");
 }
 
 static void AfiseazaCursanti(RegistruCurs registru)
@@ -68,7 +76,7 @@ static void AfiseazaCursanti(RegistruCurs registru)
     foreach (var s in lista)
     {
         var avertizare = s.PlataNecesara ? " | PLATA NECESARA" : string.Empty;
-        Console.WriteLine($"- {s.Nume} | sedinte ramase: {s.SedinteRamase}{avertizare} | ID: {s.CursantId}");
+        Console.WriteLine($"- {s.Nume} | nivel: {s.Nivel} | optiuni: {s.Optiuni} | sedinte ramase: {s.SedinteRamase}{avertizare} | ID: {s.CursantId}");
     }
 }
 
@@ -155,7 +163,7 @@ static void Cautare(RegistruCurs registru)
     foreach (var s in list)
     {
         var avertizare = s.PlataNecesara ? " | PLATA NECESARA" : string.Empty;
-        Console.WriteLine($"- {s.Nume} | sedinte ramase: {s.SedinteRamase}{avertizare} | ID: {s.CursantId}");
+        Console.WriteLine($"- {s.Nume} | nivel: {s.Nivel} | optiuni: {s.Optiuni} | sedinte ramase: {s.SedinteRamase}{avertizare} | ID: {s.CursantId}");
     }
 }
 
