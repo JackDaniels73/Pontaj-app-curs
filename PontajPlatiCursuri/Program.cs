@@ -1,6 +1,13 @@
 using PontajPlatiCursuri;
+using System.IO;
 
-var registru = new RegistruCurs();
+string fisierCursanti = "cursanti.txt";
+string fisierPlati = "plati.txt";
+
+IStocareCursanti administrareCursanti = new AdministrareCursanti_FisierText(fisierCursanti);
+IStocarePlati administrarePlati = new AdministrarePlati_FisierText(fisierPlati);
+
+var registru = new RegistruCurs(administrareCursanti, administrarePlati);
 
 while (true)
 {

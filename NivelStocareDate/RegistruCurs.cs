@@ -6,6 +6,18 @@ public sealed class RegistruCurs
     private readonly List<Prezenta> _prezente = new();
     private readonly List<Plata> _plati = new();
 
+    private readonly IStocareCursanti _stocareCursanti;
+    private readonly IStocarePlati _stocarePlati;
+
+    public RegistruCurs(IStocareCursanti stocareCursanti, IStocarePlati stocarePlati)
+    {
+        _stocareCursanti = stocareCursanti;
+        _stocarePlati = stocarePlati;
+
+        _cursanti.AddRange(_stocareCursanti.GetCursanti());
+        _plati.AddRange(_stocarePlati.GetPlati());
+    }
+
     public IReadOnlyList<Cursant> Cursanti => _cursanti;
     public IReadOnlyList<Prezenta> Prezente => _prezente;
     public IReadOnlyList<Plata> Plati => _plati;
@@ -14,6 +26,7 @@ public sealed class RegistruCurs
     {
         var cursant = new Cursant(Guid.NewGuid(), nume, sedinteInitiale, nivel, optiuni);
         _cursanti.Add(cursant);
+        _stocareCursanti.AddCursant(cursant); // Salvare persistenta fisier
         return cursant;
     }
 
@@ -24,6 +37,11 @@ public sealed class RegistruCurs
         var scazut = cursant.IncearcaScadereSedinta();
         _prezente.Add(new Prezenta(cursantId, data));
 
+        if (scazut)
+        {
+            _stocareCursanti.UpdateCursant(cursant); // Salvare persistenta date modificate
+        }
+
         return scazut;
     }
 
@@ -32,7 +50,11 @@ public sealed class RegistruCurs
         var cursant = GasesteCursant(cursantId);
 
         cursant.AdaugaSedinte(sedinteCumparate);
-        _plati.Add(new Plata(cursantId, data, sedinteCumparate));
+        var plata = new Plata(cursantId, data, sedinteCumparate);
+        _plati.Add(plata);
+
+        _stocareCursanti.UpdateCursant(cursant); // Modificat cursant
+        _stocarePlati.AddPlata(plata); // Noua inregistrare adaugata
     }
 
     public IEnumerable<SituatieFinanciaraCursant> ObtineSituatieFinanciara()

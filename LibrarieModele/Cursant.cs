@@ -18,6 +18,21 @@ public enum OptiuniCursant
 
 public sealed class Cursant
 {
+    private const char SEPARATOR_PRINCIPAL_FISIER = ';';
+
+    public Cursant(string linieFisier)
+    {
+        var dateFisier = linieFisier.Split(SEPARATOR_PRINCIPAL_FISIER);
+
+        // Ordinea de preluare a campurilor este data de ordinea in care au fost scrise 
+        // in fisier prin apelul implicit al metodei ConversieLaSir_PentruFisier()
+        Id = Guid.Parse(dateFisier[0]);
+        Nume = dateFisier[1];
+        SedinteRamase = int.Parse(dateFisier[2]);
+        Nivel = Enum.Parse<NivelCurs>(dateFisier[3]);
+        Optiuni = Enum.Parse<OptiuniCursant>(dateFisier[4]);
+    }
+
     public Cursant(Guid id, string nume, int sedinteRamase, NivelCurs nivel = NivelCurs.Incepator, OptiuniCursant optiuni = OptiuniCursant.FaraOptiuni)
     {
         if (string.IsNullOrWhiteSpace(nume))
@@ -63,5 +78,18 @@ public sealed class Cursant
 
         SedinteRamase--;
         return true;
+    }
+
+    public string ConversieLaSir_PentruFisier()
+    {
+        var obiectCursantPentruFisier = string.Format("{1}{0}{2}{0}{3}{0}{4}{0}{5}",
+            SEPARATOR_PRINCIPAL_FISIER,
+            Id.ToString(),
+            (Nume ?? "NECUNOSCUT"),
+            SedinteRamase.ToString(),
+            Nivel.ToString(),
+            Optiuni.ToString());
+
+        return obiectCursantPentruFisier;
     }
 }
