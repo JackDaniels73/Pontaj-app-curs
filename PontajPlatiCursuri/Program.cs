@@ -1,8 +1,8 @@
 using PontajPlatiCursuri;
 using System.IO;
 
-string fisierCursanti = "cursanti.txt";
-string fisierPlati = "plati.txt";
+string fisierCursanti = @"C:\Users\danie\Downloads\Pontaj-app-curs-main\cursanti.txt";
+string fisierPlati = @"C:\Users\danie\Downloads\Pontaj-app-curs-main\plati.txt";
 
 IStocareCursanti administrareCursanti = new AdministrareCursanti_FisierText(fisierCursanti);
 IStocarePlati administrarePlati = new AdministrarePlati_FisierText(fisierPlati);

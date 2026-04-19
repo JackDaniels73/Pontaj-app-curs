@@ -1,0 +1,2 @@
+2bd329ad-8269-4d27-9e31-8eeb724ae5ed;Ion Popescu;5;Intermediar;Online
+3e76fa2c-ed8f-4887-8035-2bfb3d8b6326;Maria Ionescu;2;Incepator;FaraOptiuni

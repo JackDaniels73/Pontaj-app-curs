@@ -1,0 +1,149 @@
+<Window x:Class="InterfataWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Management Cursanți - WPF" Height="650" Width="1100"
+        Background="#0F172A"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+        <!-- Stilizare pentru ListBoxItem -->
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="Margin" Value="0,5"/>
+            <Setter Property="Background" Value="#1E293B"/>
+            <Setter Property="Foreground" Value="#F8FAFC"/>
+            <Setter Property="BorderBrush" Value="#334155"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#334155"/>
+                                <Setter Property="BorderBrush" Value="#3B82F6"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#2563EB"/>
+                                <Setter Property="BorderBrush" Value="#60A5FA"/>
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Stilizare pentru TextBlock principal (Headers) -->
+        <Style x:Key="HeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#F8FAFC"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+
+        <!-- Stilizare pentru label-uri de card -->
+        <Style x:Key="CardLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="#94A3B8"/>
+            <Setter Property="Margin" Value="0,10,0,5"/>
+        </Style>
+
+        <!-- Stilizare pentru valori de card -->
+        <Style x:Key="CardValueStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="#F1F5F9"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="30">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Panoul din stânga: Lista cursanților -->
+        <Border Grid.Column="0" Background="#1E293B" CornerRadius="16" Padding="20">
+            <Border.Effect>
+                <DropShadowEffect Color="#000000" BlurRadius="15" ShadowDepth="5" Opacity="0.3"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Lista Cursanților" Style="{StaticResource HeaderStyle}"/>
+                
+                <ListBox x:Name="lstCursanti" Grid.Row="1" 
+                         Background="Transparent" BorderThickness="0"
+                         SelectionChanged="LstCursanti_SelectionChanged"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Nume}" FontSize="18" FontWeight="Medium" Foreground="#E2E8F0"/>
+                                <TextBlock Text="{Binding Id}" FontSize="11" Foreground="#64748B" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Border>
+
+        <!-- Panoul din dreapta: Detalii Cursant Selectat -->
+        <Border Grid.Column="2" Background="#1E293B" CornerRadius="16" Padding="40">
+            <Border.Effect>
+                <DropShadowEffect Color="#000000" BlurRadius="15" ShadowDepth="5" Opacity="0.3"/>
+            </Border.Effect>
+
+            <StackPanel VerticalAlignment="Center">
+                <!-- Icon/Avatar Placeholder -->
+                <Ellipse Width="100" Height="100" Fill="#3B82F6" HorizontalAlignment="Left" Margin="0,0,0,30">
+                    <Ellipse.Effect>
+                         <DropShadowEffect Color="#3B82F6" BlurRadius="30" ShadowDepth="0" Opacity="0.5"/>
+                    </Ellipse.Effect>
+                </Ellipse>
+
+                <TextBlock x:Name="lblNume" Text="Selectează un cursant" FontSize="36" FontWeight="Bold" Foreground="#FFFFFF" Margin="0,0,0,10"/>
+                
+                <Rectangle Height="2" Fill="#334155" Margin="0,15,0,30"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Detalii -->
+                    <StackPanel Grid.Row="0" Grid.Column="0">
+                        <TextBlock Text="INFORMAȚII NIVEL" Style="{StaticResource CardLabelStyle}"/>
+                        <TextBlock x:Name="lblNivel" Text="-" Style="{StaticResource CardValueStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1">
+                        <TextBlock Text="SITUAȚIE FINANCIARĂ" Style="{StaticResource CardLabelStyle}"/>
+                        <TextBlock x:Name="lblSedinte" Text="-" Style="{StaticResource CardValueStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,20,0,0">
+                        <TextBlock Text="OPȚIUNI SUPLIMENTARE" Style="{StaticResource CardLabelStyle}"/>
+                        <TextBlock x:Name="lblOptiuni" Text="-" Style="{StaticResource CardValueStyle}" Foreground="#38BDF8"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
