@@ -99,51 +99,105 @@
             </Grid>
         </Border>
 
-        <!-- Panoul din dreapta: Detalii Cursant Selectat -->
-        <Border Grid.Column="2" Background="#1E293B" CornerRadius="16" Padding="40">
-            <Border.Effect>
-                <DropShadowEffect Color="#000000" BlurRadius="15" ShadowDepth="5" Opacity="0.3"/>
-            </Border.Effect>
+        <!-- Panoul din dreapta: Detalii și Formular Adăugare -->
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-            <StackPanel VerticalAlignment="Center">
-                <!-- Icon/Avatar Placeholder -->
-                <Ellipse Width="100" Height="100" Fill="#3B82F6" HorizontalAlignment="Left" Margin="0,0,0,30">
-                    <Ellipse.Effect>
-                         <DropShadowEffect Color="#3B82F6" BlurRadius="30" ShadowDepth="0" Opacity="0.5"/>
-                    </Ellipse.Effect>
-                </Ellipse>
+            <!-- Detalii Cursant Selectat -->
+            <Border Grid.Row="0" Background="#1E293B" CornerRadius="16" Padding="30" Margin="0,0,0,20">
+                <Border.Effect>
+                    <DropShadowEffect Color="#000000" BlurRadius="15" ShadowDepth="5" Opacity="0.3"/>
+                </Border.Effect>
 
-                <TextBlock x:Name="lblNume" Text="Selectează un cursant" FontSize="36" FontWeight="Bold" Foreground="#FFFFFF" Margin="0,0,0,10"/>
-                
-                <Rectangle Height="2" Fill="#334155" Margin="0,15,0,30"/>
+                <StackPanel VerticalAlignment="Center">
+                    <Ellipse Width="80" Height="80" Fill="#3B82F6" HorizontalAlignment="Left" Margin="0,0,0,20">
+                        <Ellipse.Effect>
+                             <DropShadowEffect Color="#3B82F6" BlurRadius="30" ShadowDepth="0" Opacity="0.5"/>
+                        </Ellipse.Effect>
+                    </Ellipse>
 
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="lblNume" Text="Selectează un cursant" FontSize="28" FontWeight="Bold" Foreground="#FFFFFF" Margin="0,0,0,10"/>
+                    
+                    <Rectangle Height="2" Fill="#334155" Margin="0,10,0,20"/>
 
-                    <!-- Detalii -->
-                    <StackPanel Grid.Row="0" Grid.Column="0">
-                        <TextBlock Text="INFORMAȚII NIVEL" Style="{StaticResource CardLabelStyle}"/>
-                        <TextBlock x:Name="lblNivel" Text="-" Style="{StaticResource CardValueStyle}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Detalii -->
+                        <StackPanel Grid.Row="0" Grid.Column="0">
+                            <TextBlock Text="INFORMAȚII NIVEL" Style="{StaticResource CardLabelStyle}"/>
+                            <TextBlock x:Name="lblNivel" Text="-" Style="{StaticResource CardValueStyle}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1">
+                            <TextBlock Text="SITUAȚIE FINANCIARĂ" Style="{StaticResource CardLabelStyle}"/>
+                            <TextBlock x:Name="lblSedinte" Text="-" Style="{StaticResource CardValueStyle}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,15,0,0">
+                            <TextBlock Text="OPȚIUNI SUPLIMENTARE" Style="{StaticResource CardLabelStyle}"/>
+                            <TextBlock x:Name="lblOptiuni" Text="-" Style="{StaticResource CardValueStyle}" Foreground="#38BDF8"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Formular Adăugare Cursant Nou -->
+            <Border Grid.Row="1" Background="#1E293B" CornerRadius="16" Padding="30">
+                <Border.Effect>
+                    <DropShadowEffect Color="#000000" BlurRadius="15" ShadowDepth="5" Opacity="0.3"/>
+                </Border.Effect>
+                <StackPanel>
+                    <TextBlock Text="Adaugă Cursant Nou" FontSize="20" FontWeight="SemiBold" Foreground="#F8FAFC" Margin="0,0,0,15"/>
+                    
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Grid.Column="0">
+                            <TextBlock x:Name="lblNumeInput" Text="Nume și Prenume" Style="{StaticResource CardLabelStyle}" Margin="0,0,0,5"/>
+                            <TextBox x:Name="txtNume" Background="#0F172A" Foreground="#FFFFFF" BorderBrush="#334155" BorderThickness="1" Padding="10" FontSize="14"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="2">
+                            <TextBlock x:Name="lblSedinteInput" Text="Număr Ședințe" Style="{StaticResource CardLabelStyle}" Margin="0,0,0,5"/>
+                            <TextBox x:Name="txtSedinte" Background="#0F172A" Foreground="#FFFFFF" BorderBrush="#334155" BorderThickness="1" Padding="10" FontSize="14"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBlock x:Name="lblMesajEroare" Text="" Foreground="#EF4444" FontSize="14" Margin="0,10,0,0" Visibility="Collapsed" TextWrapping="Wrap"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+                        <Button x:Name="btnReset" Content="Reset" Click="BtnReset_Click" Background="Transparent" Foreground="#94A3B8" BorderBrush="#334155" BorderThickness="1" Padding="20,8" Margin="0,0,10,0">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="6"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                        <Button x:Name="btnAdauga" Content="Adaugă" Click="BtnAdauga_Click" Background="#2563EB" Foreground="#FFFFFF" BorderThickness="0" Padding="20,8" FontWeight="Medium">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="6"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
                     </StackPanel>
-
-                    <StackPanel Grid.Row="0" Grid.Column="1">
-                        <TextBlock Text="SITUAȚIE FINANCIARĂ" Style="{StaticResource CardLabelStyle}"/>
-                        <TextBlock x:Name="lblSedinte" Text="-" Style="{StaticResource CardValueStyle}"/>
-                    </StackPanel>
-
-                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,20,0,0">
-                        <TextBlock Text="OPȚIUNI SUPLIMENTARE" Style="{StaticResource CardLabelStyle}"/>
-                        <TextBlock x:Name="lblOptiuni" Text="-" Style="{StaticResource CardValueStyle}" Foreground="#38BDF8"/>
-                    </StackPanel>
-                </Grid>
-            </StackPanel>
-        </Border>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Window>
