@@ -72,4 +72,25 @@ public class AdministrareCursanti_FisierText : IStocareCursanti
         
         return selectat.FirstOrDefault();
     }
+
+    // Funcție de ștergere
+    public void DeleteCursant(System.Guid id)
+    {
+        var cursanti = GetCursanti();
+        var index = cursanti.FindIndex(c => c.Id == id);
+        
+        if (index != -1)
+        {
+            cursanti.RemoveAt(index);
+            
+            // Rescriem continutul fara cursantul sters
+            using (StreamWriter streamWriterFisierText = new StreamWriter(_numeFisier, false))
+            {
+                foreach (var c in cursanti)
+                {
+                    streamWriterFisierText.WriteLine(c.ConversieLaSir_PentruFisier());
+                }
+            }
+        }
+    }
 }

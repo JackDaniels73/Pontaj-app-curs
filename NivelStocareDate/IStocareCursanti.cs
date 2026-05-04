@@ -8,4 +8,5 @@ public interface IStocareCursanti
     List<Cursant> GetCursanti();
     void UpdateCursant(Cursant cursant);
     Cursant CautaCursant(string nume);
+    void DeleteCursant(System.Guid id);
 }

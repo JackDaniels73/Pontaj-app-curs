@@ -13,7 +13,7 @@ public enum OptiuniCursant
     FaraOptiuni = 0,
     Online = 1,
     Weekend = 2,
-    EchipamentInclus = 4
+    Fizic = 4
 }
 
 public sealed class Cursant
